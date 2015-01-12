@@ -36,5 +36,5 @@ def main(argv=sys.argv):
     DBSession.configure(bind=engine)
     Base.metadata.create_all(engine)
     with transaction.manager:
-        model = MyModel(name='one', value=1)
+        model = Entry(title='Proteomics for Dummies', body='A step by step instruction on how to create de novo proteins in silico')
         DBSession.add(model)
