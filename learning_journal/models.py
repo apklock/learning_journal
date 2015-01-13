@@ -5,7 +5,7 @@ from sqlalchemy import (
     Text,
 	Unicode,
 	DateTime,
-	UnicodeText
+	UnicodeText,
     )
 
 from sqlalchemy.ext.declarative import declarative_base
@@ -37,3 +37,14 @@ class Entry(Base):
     created = Column(DateTime, nullable=False, default=datetime.datetime.now())
     edited = Column(DateTime, nullable=False, default=datetime.datetime.now(), onupdate=datetime.datetime.now())
 	
+	@classmethod
+	def all(cls, session=None):
+		if session is None:
+			session = DBSession
+		session.query(cls).all()
+	
+	@classmethod
+	def by_id(cls, entry_id, session=None):
+		if session is None:
+			session = DBSession
+		session.query(cls).filter_by(id=entry_id)
