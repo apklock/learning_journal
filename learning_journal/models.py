@@ -3,6 +3,8 @@ from sqlalchemy import (
     Index,
     Integer,
     Text,
+	Unicode,
+	DateTime
     )
 
 from sqlalchemy.ext.declarative import declarative_base
