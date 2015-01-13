@@ -7,8 +7,6 @@ from sqlalchemy import (
 	DateTime,
 	UnicodeText,
     )
-
-import DateTime	
 	
 from sqlalchemy.ext.declarative import declarative_base
 
