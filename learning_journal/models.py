@@ -40,11 +40,13 @@ class Entry(Base):
     edited = Column(DateTime, nullable=False, default=datetime.datetime.now(), onupdate=datetime.datetime.now())
 	
     @classmethod
-    def all(cls):
-    #return a query with all of the entries in the database ordered by creation date
+    def all(cls, session=None):
+        if session is None:
+            session = DBSession
         return DBSession.query(cls).order_by(sa.desc(cls.created)).all()
     
     @classmethod
-    def by_id(cls, id):
-    #return a query with the specified entry by id
+    def by_id(cls, id, session=None):
+        if session is None:
+            session = DBSession
         return DBSession.query(cls).get(id)
