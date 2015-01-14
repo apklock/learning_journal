@@ -9,7 +9,7 @@ from sqlalchemy import (
     )
 	
 import datetime
-	
+import sqlalchemy as sa
 from sqlalchemy.ext.declarative import declarative_base
 
 from sqlalchemy.orm import (
@@ -40,13 +40,11 @@ class Entry(Base):
     edited = Column(DateTime, nullable=False, default=datetime.datetime.now(), onupdate=datetime.datetime.now())
 	
     @classmethod
-    def all(cls, session=None):
-        if session is None:
-            session = DBSession
-        session.query(cls).all()
-	
+    def all(cls):
+    #return a query with all of the entries in the database ordered by creation date
+        return DBSession.query(cls).order_by(sa.desc(cls.created)).all()
+    
     @classmethod
-    def by_id(cls, entry_id, session=None):
-        if session is None:
-            session = DBSession
-        session.query(cls).filter_by(id=entry_id)
+    def by_id(cls, id):
+    #return a query with the specified entry by id
+        return DBSession.query(cls).get(id)
