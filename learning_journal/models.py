@@ -35,9 +35,9 @@ class Entry(Base):
     __tablename__ = 'entries'
     id = Column(Integer, primary_key=True)
     title = Column(Unicode(255), unique=True, nullable=False)
-    body = Column(UnicodeText)
-    created = Column(DateTime, nullable=False, default=datetime.datetime.now())
-    edited = Column(DateTime, nullable=False, default=datetime.datetime.now(), onupdate=datetime.datetime.now())
+    body = Column(UnicodeText, default=u'')
+    created = Column(DateTime, default=datetime.datetime.now())
+    edited = Column(DateTime, default=datetime.datetime.now(), onupdate=datetime.datetime.now())
 	
     @classmethod
     def all(cls, session=None):
