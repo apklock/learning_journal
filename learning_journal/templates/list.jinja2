@@ -1,3 +1,5 @@
+{% extends "layout.jinja2" %}
+{% block body %}
 {% if entries %}
 <h2>Journal Entries</h2>
 <ul>
@@ -10,3 +12,5 @@
 {% else %}
 <p>This journal is empty</p>
 {% endif %}
+<p><a href="{{ request.route_url('action', action='create') }}">New Entry</a></p>
+{% endblock %}

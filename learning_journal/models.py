@@ -3,9 +3,9 @@ from sqlalchemy import (
     Index,
     Integer,
     Text,
-	Unicode,
-	DateTime,
-	UnicodeText,
+    Unicode,
+    DateTime,
+    UnicodeText,
     )
 	
 import datetime
@@ -41,12 +41,16 @@ class Entry(Base):
 	
     @classmethod
     def all(cls, session=None):
+        """return a query with all of the entries sorted by creation date in reverse order
+        """
         if session is None:
             session = DBSession
-        return DBSession.query(cls).order_by(sa.desc(cls.created)).all()
+        return session.query(cls).order_by(sa.desc(cls.created)).all()
     
     @classmethod
     def by_id(cls, id, session=None):
+        """return a query of a single entry according to the id searched for
+        """
         if session is None:
             session = DBSession
-        return DBSession.query(cls).get(id)
+        return session.query(cls).get(id)
