@@ -41,11 +41,11 @@ class Entry(Base):
 	
     @classmethod
     def all(cls, session=None):
-        """return a query with all of the entries sorted by creation date in reverse order
+        """return a query with all of the entries sorted by creation date in ascending order, yes I changed it
         """
         if session is None:
             session = DBSession
-        return session.query(cls).order_by(sa.desc(cls.created)).all()
+        return session.query(cls).order_by(sa.asc(cls.created)).all()
     
     @classmethod
     def by_id(cls, id, session=None):
