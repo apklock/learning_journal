@@ -61,8 +61,6 @@ class User(Base):
     username = Column(Unicode(255), unique=True, nullable=False)
     password = Column(Unicode, nullable=False)
 
-    Index('user_index', User.username, unique=True, mysql_length=255)
-
     @classmethod
     def retrieve(cls, username, session=None):
         """return a query of a single user when the username is searched for
@@ -71,3 +69,4 @@ class User(Base):
             session = DBSession
         return session.query(cls).get(username)
 
+Index('user_index', User.username, unique=True, mysql_length=255)
