@@ -1,5 +1,9 @@
+title {border-bottom: .2em solid #4ca;
+ margin-bottom: .5em;
+}
+
 body {background: url("proteomics.png"); 
 background-size: 50%; 
 background-repeat: no-repeat; 
-background-position: top center
+background-position: top center;
 }
