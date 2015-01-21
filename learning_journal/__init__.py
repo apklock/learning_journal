@@ -1,5 +1,9 @@
 from pyramid.config import Configurator
 from sqlalchemy import engine_from_config
+from pyramid.authentication import AuthTktAuthenticationPolicy
+from pyramid.authorization import ACLAuthorizationPolicy
+from .security import EntryFactory
+
 
 from .models import (
     DBSession,
@@ -13,11 +17,15 @@ def main(global_config, **settings):
     engine = engine_from_config(settings, 'sqlalchemy.')
     DBSession.configure(bind=engine)
     Base.metadata.bind = engine
-    config = Configurator(settings=settings)
+    config = Configurator(settings=settings,
+        authentication_policy=AuthTktAuthenticationPolicy('somesecret'),
+        authorization_policy=ACLAuthorizationPolicy(),
+        default_permission='view')
     config.include('pyramid_jinja2')
     config.add_static_view('static', 'static', cache_max_age=3600)
-    config.add_route('home', '/')
-    config.add_route('detail', '/journal/{id:\d+}') #looking for an id that is a digit 1 character or longer
-    config.add_route('action', '/journal/{action}')
+    config.add_route('home', '/', factory=EntryFactory)
+    config.add_route('detail', '/journal/{id:\d+}', factory=EntryFactory) #looking for an id that is a digit 1 character or longer
+    config.add_route('action', '/journal/{action}', factory=EntryFactory)
+    config.add_route('auth', '/sign/{action}', factory=EntryFactory)
     config.scan()
     return config.make_wsgi_app()

@@ -10,12 +10,14 @@ from pyramid.paster import (
     )
 
 from pyramid.scripts.common import parse_vars
+from cryptacular.pbkdf2 import PBKDF2PasswordManager as Manager
 
 from ..models import (
     DBSession,
     MyModel,
     Base,
-    Entry
+    Entry,
+    User
     )
 
 
@@ -37,5 +39,7 @@ def main(argv=sys.argv):
     DBSession.configure(bind=engine)
     Base.metadata.create_all(engine)
     with transaction.manager:
-        model = Entry(title='Proteomics for Dummies', body='A step by step instruction on how to create de novo proteins in silico')
-        DBSession.add(model)
+        manager = Manager()
+        password = manager.encode(u'admin')
+        admin = User(username=u'admin', password=password)
+        DBSession.add(admin)

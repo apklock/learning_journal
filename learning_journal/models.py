@@ -11,6 +11,7 @@ from sqlalchemy import (
 import datetime
 import sqlalchemy as sa
 from sqlalchemy.ext.declarative import declarative_base
+from cryptacular.pbkdf2 import PBKDF2PasswordManager as Manager
 
 from sqlalchemy.orm import (
     scoped_session,
@@ -60,7 +61,7 @@ class User(Base):
     id = Column(Integer, primary_key=True, autoincrement=True)
     username = Column(Unicode(255), unique=True, nullable=False)
     password = Column(Unicode(255), nullable=False)
-
+    
     @classmethod
     def retrieve(cls, username, session=None):
         """return a query of a single user when the username is searched for
@@ -68,5 +69,9 @@ class User(Base):
         if session is None:
             session = DBSession
         return session.query(cls).filter(User.username == username).first()
+        
+    def verify_password(self, password):
+        manager = Manager()
+        return manager.check(self.password, password)
 
 Index('user_index', User.username, unique=True, mysql_length=255)
