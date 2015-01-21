@@ -22,5 +22,5 @@ class EntryCreateForm(Form):
     )
 	
 class EntryEditForm(EntryCreateForm):
-	id = HiddenField()
-
+    id = HiddenField()
+    
