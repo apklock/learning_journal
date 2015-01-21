@@ -67,6 +67,6 @@ class User(Base):
         """
         if session is None:
             session = DBSession
-        return session.query(cls).get(username)
+        return session.query(cls).filter(User.username == username).first()
 
 Index('user_index', User.username, unique=True, mysql_length=255)
