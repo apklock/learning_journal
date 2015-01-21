@@ -18,7 +18,8 @@ requires = [
     'zope.sqlalchemy',
     'waitress',
     'wtforms', 
-    'cryptacular', # <-- add this to the list
+    'cryptacular',
+    'markdown', # <-- add this to the list
     ]
 
 setup(name='learning_journal',

@@ -4,6 +4,9 @@ from pyramid.httpexceptions import HTTPNotFound, HTTPFound
 from pyramid.security import forget, remember, authenticated_userid
 from sqlalchemy.exc import DBAPIError
 from .forms import EntryCreateForm, EntryEditForm, LoginForm
+from jinja2 import Markup
+import markdown
+
 
 from .models import (
     DBSession,
@@ -87,6 +90,11 @@ def sign_in_out(request):
     else:
         headers = forget(request)
     return HTTPFound(location=request.route_url('home'), headers=headers)    
+    
+
+def render_markdown(content):
+    output = Markup(markdown.markdown(content))
+    return output
     
     
 conn_err_msg = """\
