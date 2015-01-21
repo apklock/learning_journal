@@ -57,9 +57,9 @@ class Entry(Base):
 
 class User(Base):
     __tablename__ = 'users'
-    id = Column(Integer, primary_key=True)
+    id = Column(Integer, primary_key=True, autoincrement=True)
     username = Column(Unicode(255), unique=True, nullable=False)
-    password = Column(Unicode, nullable=False)
+    password = Column(Unicode(255), nullable=False)
 
     @classmethod
     def retrieve(cls, username, session=None):

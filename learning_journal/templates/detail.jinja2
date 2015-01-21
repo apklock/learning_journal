@@ -8,5 +8,5 @@
   <p>Created <strong title="{{ entry.created }}">{{entry.created}}</strong></p><article>
 </article>
 <p><a href="{{ request.route_url('home') }}">Go Back</a></p>
-<p><a href="{{ request.route_url('action', action='edit', _query={'id':entry.id}) }}">Edit</a></p>
+<p><a href="{{ request.route_url('action', action='edit', _query={'id':entry.id}) }}">Edit Entry</a></p>
 {% endblock %}
