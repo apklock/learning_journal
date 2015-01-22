@@ -19,7 +19,8 @@ requires = [
     'waitress',
     'wtforms', 
     'cryptacular',
-    'markdown', # <-- add this to the list
+    'markdown', 
+    'pygments', # <-- add this to the list
     ]
 
 setup(name='learning_journal',
